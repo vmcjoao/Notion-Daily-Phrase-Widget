@@ -6,6 +6,30 @@
 <title>Daily Quote</title>
 
 <style>
+    :root {
+        --bg-color: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #bfdbfe 100%);
+        --text-primary: #1e3a8a;
+        --text-secondary: #2563eb;
+        --text-tertiary: #3b82f6;
+        --border-color: #93c5fd;
+        --shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.2),
+                  0 4px 10px -3px rgba(59, 130, 246, 0.1);
+        --accent-color: #3b82f6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg-color: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #273449 100%);
+            --text-primary: #e2e8f0;
+            --text-secondary: #a5b4c8;
+            --text-tertiary: #8fa3c1;
+            --border-color: #3a4a63;
+            --shadow: 0 6px 20px -4px rgba(20, 30, 50, 0.45),
+                    0 3px 8px -3px rgba(20, 30, 50, 0.35);
+            --accent-color: #7ea7d9;
+        }
+    }
+
     * {
         margin: 0;
         padding: 0;
@@ -13,42 +37,56 @@
     }
 
     body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        background: transparent; 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: transparent;
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh; 
+        min-height: 100vh;
         padding: 20px;
+        overflow: hidden;
     }
 
     .quote-box {
-        background: transparent;
-        padding: 2rem 2.5rem;
-        width: 100%;
-        max-width: 400px; 
-        border-radius: 18px;
-        box-shadow: 0 8px 25px rgba(180, 200, 255, 0.35);
+        background: var(--bg-color);
+        border: 2px solid var(--border-color);
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: var(--shadow);
         text-align: center;
-        border: 1px solid #dce6ff;
+        position: relative;
+        overflow: hidden;
+        
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .quote-box::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+        animation: shimmer 6s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    @keyframes shimmer {
+        0%, 100% { transform: rotate(0deg) scale(1); opacity: 0.3; }
+        50% { transform: rotate(180deg) scale(1.1); opacity: 0.6; }
     }
 
     .quote-text {
-        font-size: 1.2rem;
+        font-size: 1.35rem;
         font-weight: 500;
-        color: #3a4d7a;
-        line-height: 1.5;
-    }
-    
-    @media (prefers-color-scheme: dark) {
-        .quote-box {
-            background: #2f3437; 
-            border: 1px solid #3f4447;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-        .quote-text {
-            color: #ebebeb;
-        }
+        color: var(--text-primary);
+        line-height: 1.4;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(59, 130, 246, 0.1);
+        position: relative;
+        z-index: 1;
     }
 </style>
 
@@ -61,17 +99,19 @@
 
 <script>
     const quotes = [
-        { text: "Small steps every day lead to big changes."},
+        { text: "Helping others shine won't dim your own glow."},
         { text: "Focus on progress, not perfection."},
-        { text: "Discipline beats motivation."},
+        { text: "Running away from your problems is a race you'll never win."},
         { text: "You owe it to yourself to become who you’re capable of being."},
         { text: "Consistency is more important than intensity."},
         { text: "One day or day one. You decide."},
         { text: "Your future is created by what you do today."},
         { text: "Do it with passion or not at all."},
-        { text: "Dream big and dare to fail."}
+        { text: "Dream big and dare to fail."}, 
+        { text: "No price is too high to pay for the privilege of owning yourself."}, 
+        { text: "Cry as hard as you want, but make sure when you stop crying you never cry for the same reason again."}
     ];
-
+    
     const now = new Date();
     const start = new Date(now.getFullYear(), 0, 0);
     const diff = now - start;
