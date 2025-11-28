@@ -1,61 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Phrases Widget</title>
-  <style>
-    body {
+<meta charset="UTF-8">
+<title>Daily Quote</title>
+
+<style>
+    * {
         margin: 0;
         padding: 0;
-        background: transparent; /* Notion-friendly */
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f2f6ff;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
     }
 
-    .phrase-box {
-        font-size: 1.5rem;
-        color: #1e40af; /* Blue */
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        padding: 1rem 2rem;
-        border-radius: 12px;
-        border: 2px solid #60a5fa;
-        background: rgba(147, 197, 253, 0.15);
-        backdrop-filter: blur(6px);
+    .quote-box {
+        background: white;
+        padding: 2rem 2.5rem;
+        width: 350px;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(180, 200, 255, 0.35);
+        text-align: center;
+        border: 1px solid #dce6ff;
     }
 
-  </style>
+    .quote-text {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: #3a4d7a;
+        margin-bottom: 1rem;
+    }
+
+    .quote-author {
+        font-size: 0.95rem;
+        color: #7c8db5;
+        font-weight: 400;
+        margin-top: 0.5rem;
+    }
+</style>
+
 </head>
 <body>
-  <div class="phrase-box">
-    <span id="phrase"></span>
-  </div>
 
-  <script>
-    const phrases = [
-        "Cry as hard as you want, but make sure when you stop crying you never cry for the same reason again",
-        "A great future doesn't require a great past",
-        "No teacher can teach experience",
-        "Idea without action is nothing",
-        "Running away from your problems is a race you'll never win",
-        "Helping others shine won't dim your own glow",
-        "No price is too high to pay for the privilege of owning yourself"
+<div class="quote-box">
+    <div class="quote-text" id="quote-text"></div>
+    <div class="quote-author" id="quote-author"></div>
+</div>
+
+<script>
+    const quotes = [
+        { text: "Small steps every day lead to big changes.", author: "— Unknown" },
+        { text: "Focus on progress, not perfection.", author: "— Unknown" },
+        { text: "Discipline beats motivation.", author: "— Unknown" },
+        { text: "You owe it to yourself to become who you’re capable of being.", author: "— Jordan Peterson" },
+        { text: "Consistency is more important than intensity.", author: "— James Clear" },
+        { text: "One day or day one. You decide.", author: "— Unknown" },
+        { text: "Your future is created by what you do today.", author: "— Unknown" }
     ];
 
-    const phraseEl = document.getElementById("phrase");
+    const today = new Date();
+    const index = today.getFullYear() + today.getMonth() + today.getDate();
+    const quote = quotes[index % quotes.length];
 
-    let index = 0;
+    document.getElementById("quote-text").textContent = quote.text;
+    document.getElementById("quote-author").textContent = quote.author;
+</script>
 
-    function updatePhrase() {
-        phraseEl.textContent = phrases[index];
-        index = (index + 1) % phrases.length;
-    }
-
-    updatePhrase();
-    setInterval(updatePhrase, 5000);
-
-  </script>
 </body>
 </html>
